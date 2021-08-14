@@ -5,24 +5,24 @@ import styled from 'styled-components';
 import { srConfig } from '@config';
 import sr from '@utils/sr';
 import { Icon } from '@components/icons';
-import { usePrefersReducedMotion } from '@hooks';
 
 const StyledProjectsSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 1040px;
 
   h2 {
     font-size: clamp(24px, 5vw, var(--fz-heading));
   }
 
-  .archive-link {
-    font-family: var(--font-mono);
-    font-size: var(--fz-sm);
-    &:after {
-      bottom: 0.1em;
-    }
-  }
+  // .archive-link {
+  //   font-family: var(--font-mono);
+  //   font-size: var(--fz-sm);
+  //   &:after {
+  //     bottom: 0.1em;
+  //   }
+  // }
 
   .projects-grid {
     ${({ theme }) => theme.mixins.resetList};
@@ -34,6 +34,11 @@ const StyledProjectsSection = styled.section`
 
     @media (max-width: 1080px) {
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    a {
+      position: relative;
+      z-index: 1;
     }
   }
 
@@ -48,18 +53,11 @@ const StyledProject = styled.li`
   cursor: default;
   transition: var(--transition);
 
-  @media (prefers-reduced-motion: no-preference) {
-    &:hover,
-    &:focus-within {
-      .project-inner {
-        transform: translateY(-7px);
-      }
+  &:hover,
+  &:focus-within {
+    .project-inner {
+      transform: translateY(-7px);
     }
-  }
-
-  a {
-    position: relative;
-    z-index: 1;
   }
 
   .project-inner {
@@ -191,17 +189,12 @@ const Projects = () => {
 
   const [showMore, setShowMore] = useState(false);
   const revealTitle = useRef(null);
-  const revealArchiveLink = useRef(null);
+  // const revealArchiveLink = useRef(null);
   const revealProjects = useRef([]);
-  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
     sr.reveal(revealTitle.current, srConfig());
-    sr.reveal(revealArchiveLink.current, srConfig());
+    // sr.reveal(revealArchiveLink.current, srConfig());
     revealProjects.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 100)));
   }, []);
 
@@ -210,78 +203,22 @@ const Projects = () => {
   const firstSix = projects.slice(0, GRID_LIMIT);
   const projectsToShow = showMore ? projects : firstSix;
 
-  const projectInner = node => {
-    const { frontmatter, html } = node;
-    const { github, external, title, tech } = frontmatter;
-
-    return (
-      <div className="project-inner">
-        <header>
-          <div className="project-top">
-            <div className="folder">
-              <Icon name="Folder" />
-            </div>
-            <div className="project-links">
-              {github && (
-                <a href={github} aria-label="GitHub Link" target="_blank" rel="noreferrer">
-                  <Icon name="GitHub" />
-                </a>
-              )}
-              {external && (
-                <a
-                  href={external}
-                  aria-label="External Link"
-                  className="external"
-                  target="_blank"
-                  rel="noreferrer">
-                  <Icon name="External" />
-                </a>
-              )}
-            </div>
-          </div>
-
-          <h3 className="project-title">
-            <a href={external} target="_blank" rel="noreferrer">
-              {title}
-            </a>
-          </h3>
-
-          <div className="project-description" dangerouslySetInnerHTML={{ __html: html }} />
-        </header>
-
-        <footer>
-          {tech && (
-            <ul className="project-tech-list">
-              {tech.map((tech, i) => (
-                <li key={i}>{tech}</li>
-              ))}
-            </ul>
-          )}
-        </footer>
-      </div>
-    );
-  };
-
   return (
     <StyledProjectsSection>
       <h2 ref={revealTitle}>Other Noteworthy Projects</h2>
 
-      <Link className="inline-link archive-link" to="/archive" ref={revealArchiveLink}>
+      {/* <Link className="inline-link archive-link" to="/archive" ref={revealArchiveLink}>
         view the archive
-      </Link>
+      </Link> */}
 
       <ul className="projects-grid">
-        {prefersReducedMotion ? (
-          <>
-            {projectsToShow &&
-              projectsToShow.map(({ node }, i) => (
-                <StyledProject key={i}>{projectInner(node)}</StyledProject>
-              ))}
-          </>
-        ) : (
-          <TransitionGroup component={null}>
-            {projectsToShow &&
-              projectsToShow.map(({ node }, i) => (
+        <TransitionGroup component={null}>
+          {projectsToShow &&
+            projectsToShow.map(({ node }, i) => {
+              const { frontmatter, html } = node;
+              const { github, external, title, tech } = frontmatter;
+
+              return (
                 <CSSTransition
                   key={i}
                   classNames="fadeup"
@@ -293,12 +230,51 @@ const Projects = () => {
                     style={{
                       transitionDelay: `${i >= GRID_LIMIT ? (i - GRID_LIMIT) * 100 : 0}ms`,
                     }}>
-                    {projectInner(node)}
+                    <div className="project-inner">
+                      <header>
+                        <div className="project-top">
+                          <div className="folder">
+                            <Icon name="Folder" />
+                          </div>
+                          <div className="project-links">
+                            {github && (
+                              <a href={github} aria-label="GitHub Link">
+                                <Icon name="GitHub" />
+                              </a>
+                            )}
+                            {external && (
+                              <a href={external} aria-label="External Link" className="external">
+                                <Icon name="External" />
+                              </a>
+                            )}
+                          </div>
+                        </div>
+
+                        <h3 className="project-title">
+                          <a href={external}>{title}</a>
+                        </h3>
+
+                        <div
+                          className="project-description"
+                          dangerouslySetInnerHTML={{ __html: html }}
+                        />
+                      </header>
+
+                      <footer>
+                        {tech && (
+                          <ul className="project-tech-list">
+                            {tech.map((tech, i) => (
+                              <li key={i}>{tech}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </footer>
+                    </div>
                   </StyledProject>
                 </CSSTransition>
-              ))}
-          </TransitionGroup>
-        )}
+              );
+            })}
+        </TransitionGroup>
       </ul>
 
       <button className="more-button" onClick={() => setShowMore(!showMore)}>
