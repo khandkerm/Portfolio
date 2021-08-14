@@ -1,8 +1,8 @@
 ---
 date: '2017-11-01'
 title: 'Library Management'
-github: 'https://github.com/Junaed-Uddin/Library-Management'
-external: 'https://github.com/Junaed-Uddin/Library-Management'
+github: 'https://github.com/khandkerm/library-management'
+external: 'https://github.com/khandkerm/library-management'
 tech:
   - Visio
   - MySql

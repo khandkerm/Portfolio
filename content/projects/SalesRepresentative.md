@@ -1,8 +1,8 @@
 ---
 date: '2021-04-01'
 title: 'Sales Representative Management System'
-github: 'https://github.com/Junaed-Uddin/Sales-Representative-Management-System'
-external: 'https://github.com/Junaed-Uddin/Sales-Representative-Management-System'
+github: 'https://github.com/khandkerm/sales-representative'
+external: 'https://github.com/khandkerm/sales-representative'
 tech:
   - JDBC
   - JAVA

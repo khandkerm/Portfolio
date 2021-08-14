@@ -1,8 +1,8 @@
 ---
 date: '2018-12-29'
 title: 'Pneumonia Detection (Binary Classification) from X-ray Images'
-github: 'https://github.com/Junaed-Uddin/Deep-Leaning'
-external: 'https://github.com/Junaed-Uddin/Deep-Leaning'
+github: 'https://github.com/khandkerm/Deep-Learning'
+external: 'https://github.com/khandkerm/Deep-Learning'
 tech:
   - Python
   - Keras

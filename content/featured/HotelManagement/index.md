@@ -2,8 +2,8 @@
 date: '2018-05-30'
 title: 'Hotel Management System'
 cover: './hotel.PNG'
-github: 'https://github.com/Junaed-Uddin/Hotel-Booking'
-external: 'https://github.com/Junaed-Uddin/Hotel-Booking'
+github: 'https://github.com/khandkerm/Hotel-Booking'
+external: 'https://github.com/khandkerm/Hotel-Booking'
 tech:
   - PHP
   - HTML

@@ -1,8 +1,8 @@
 ---
 date: '2019-05-15'
 title: 'Word Dictionary'
-github: 'https://github.com/Junaed-Uddin/Word-Dictionary'
-external: 'https://github.com/Junaed-Uddin/Word-Dictionary'
+github: 'https://github.com/khandkerm/word-dictonary'
+external: 'https://github.com/khandkerm/word-dictonary'
 tech:
   - Java
   - SQLite

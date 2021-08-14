@@ -1,8 +1,8 @@
 ---
 date: '2017-01-01'
 title: 'Bank Management System'
-github: 'https://github.com/Junaed-Uddin/Bank-management'
-external: 'https://github.com/Junaed-Uddin/Bank-management'
+github: 'https://github.com/khandkerm/Bank-Management'
+external: 'https://github.com/khandkerm/Bank-Management'
 tech:
   - Java
   - Oracle

@@ -5,7 +5,7 @@ module.exports = {
     title: 'Mahmudul Hasan',
     description:
       'Mahmudul Hasan is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences.',
-    siteUrl: 'https://brittanychiang.com', // No trailing slash allowed!
+    siteUrl: 'https://mahmudul.gatsbyjs.io/', // No trailing slash allowed!
     image: '/mahmudul.jpg', // Path to your image you placed in the 'static' folder
     twitterUsername: '',
   },

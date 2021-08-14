@@ -126,7 +126,7 @@ const About = () => {
     sr.reveal(revealContainer.current, srConfig());
   }, []);
 
-  const skills = ['JavaScript (ES6+)', 'React', 'Eleventy', 'Vue', 'Node.js', 'WordPress'];
+  const skills = ['Java', 'Python', 'C++', 'C#', 'JavaScript (ES6+)','HTML & (S)CSS', 'Java Spring (JDBC)', 'Django', 'MySQL, PL/SQL',  'Data Structure', 'Algorithm'];
 
   return (
     <StyledAboutSection id="about" ref={revealContainer}>
@@ -136,10 +136,19 @@ const About = () => {
         <StyledText>
           <div>
             <p>
-              Hello! My name is Mahmudul Hasan Khandaker and I enjoy creating things that live on the internet. My
-              interest in web development started back in 2012 when I decided to try editing custom
-              Tumblr themes — turns out hacking together a custom reblog button taught me a lot
-              about HTML &amp; CSS!
+              Hello! My name is Mahmudul Hasan Khandaker and I enjoy creating things that live on the internet. I have a Bachelor's degree in Computer Science and Engineering from Ahsanullah University of Science & Technology.
+            </p>
+
+            <p>
+              I have maintained, developed and launched multiple projects from scratch, carrying the development of its' back-end and front-end codebases. My goal is to always build products that provide
+              pixel-perfect, performant experiences and also have a serious passion for front-end & Backend development for creating intuitive and dynamic user experiences.
+            </p>
+
+            <p>
+              Shortly after graduating from{' '}
+              <a href="https://www.aust.edu/">Ahsanullah University</a>, I joined the Software
+              engineering team at <a href="https://www.itbangla.org/">IT Bangla Ltd</a> where I work
+              on a wide variety of interesting and meaningful projects on a daily basis.
             </p>
 
             <p>Here are a few technologies I've been working with recently:</p>
