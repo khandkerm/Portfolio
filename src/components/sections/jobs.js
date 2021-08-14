@@ -5,21 +5,16 @@ import styled from 'styled-components';
 import { srConfig } from '@config';
 import { KEY_CODES } from '@utils';
 import sr from '@utils/sr';
-import { usePrefersReducedMotion } from '@hooks';
 
 const StyledJobsSection = styled.section`
-  max-width: 700px;
+  max-width: 1040px;
 
   .inner {
     display: flex;
+    font-size: 20px;
 
     @media (max-width: 600px) {
       display: block;
-    }
-
-    // Prevent container from jumping
-    @media (min-width: 700px) {
-      min-height: 340px;
     }
   }
 `;
@@ -36,13 +31,11 @@ const StyledTabList = styled.div`
     display: flex;
     overflow-x: auto;
     width: calc(100% + 100px);
-    padding-left: 50px;
     margin-left: -50px;
     margin-bottom: 30px;
   }
   @media (max-width: 480px) {
     width: calc(100% + 50px);
-    padding-left: 25px;
     margin-left: -25px;
   }
 
@@ -77,7 +70,7 @@ const StyledTabButton = styled.button`
   background-color: transparent;
   color: ${({ isActive }) => (isActive ? 'var(--green)' : 'var(--slate)')};
   font-family: var(--font-mono);
-  font-size: var(--fz-xs);
+  font-size: 16px;
   text-align: left;
   white-space: nowrap;
 
@@ -112,14 +105,15 @@ const StyledHighlight = styled.div`
   transition: transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition-delay: 0.1s;
 
-  @media (max-width: 600px) {
+  @media only screen and (min-width: 500px) and (max-width: 600px) {
     top: auto;
     bottom: 0;
     width: 100%;
     max-width: var(--tab-width);
     height: 2px;
-    margin-left: 50px;
+    margin-left: 38%;
     transform: translateX(calc(${({ activeTabId }) => activeTabId} * var(--tab-width)));
+    align-items:center;
   }
   @media (max-width: 480px) {
     margin-left: 25px;
@@ -127,8 +121,6 @@ const StyledHighlight = styled.div`
 `;
 
 const StyledTabPanels = styled.div`
-  position: relative;
-  width: 100%;
   margin-left: 20px;
 
   @media (max-width: 600px) {
@@ -143,6 +135,7 @@ const StyledTabPanel = styled.div`
 
   ul {
     ${({ theme }) => theme.mixins.fancyList};
+    font-size: 20px;
   }
 
   h3 {
@@ -192,16 +185,9 @@ const Jobs = () => {
   const [activeTabId, setActiveTabId] = useState(0);
   const [tabFocus, setTabFocus] = useState(null);
   const tabs = useRef([]);
+
   const revealContainer = useRef(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    sr.reveal(revealContainer.current, srConfig());
-  }, []);
+  useEffect(() => sr.reveal(revealContainer.current, srConfig()), []);
 
   const focusTab = () => {
     if (tabs.current[tabFocus]) {

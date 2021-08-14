@@ -16,6 +16,10 @@ const StyledProjectsGrid = styled.ul`
   }
 `;
 
+const StyledJobsSection = styled.section`
+  max-width: 1040px;
+`;
+
 const StyledProject = styled.li`
   position: relative;
   display: grid;

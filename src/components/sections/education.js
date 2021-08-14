@@ -156,7 +156,7 @@ const StyledTabPanel = styled.div`
 `;
 
 const Education = () => {
-    const data = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
     query {
       education: allMarkdownRemark(
         filter: { fileAbsolutePath: { regex: "/education/" } }
@@ -178,117 +178,117 @@ const Education = () => {
     }
   `);
 
-    const jobsData = data.education.edges;
+  const jobsData = data.education.edges;
 
-    const [activeTabId, setActiveTabId] = useState(0);
-    const [tabFocus, setTabFocus] = useState(null);
-    const tabs = useRef([]);
+  const [activeTabId, setActiveTabId] = useState(0);
+  const [tabFocus, setTabFocus] = useState(null);
+  const tabs = useRef([]);
 
-    const revealContainer = useRef(null);
-    useEffect(() => sr.reveal(revealContainer.current, srConfig()), []);
+  const revealContainer = useRef(null);
+  useEffect(() => sr.reveal(revealContainer.current, srConfig()), []);
 
-    const focusTab = () => {
-        if (tabs.current[tabFocus]) {
-            tabs.current[tabFocus].focus();
-            return;
-        }
-        // If we're at the end, go to the start
-        if (tabFocus >= tabs.current.length) {
-            setTabFocus(0);
-        }
-        // If we're at the start, move to the end
-        if (tabFocus < 0) {
-            setTabFocus(tabs.current.length - 1);
-        }
-    };
+  const focusTab = () => {
+    if (tabs.current[tabFocus]) {
+      tabs.current[tabFocus].focus();
+      return;
+    }
+    // If we're at the end, go to the start
+    if (tabFocus >= tabs.current.length) {
+      setTabFocus(0);
+    }
+    // If we're at the start, move to the end
+    if (tabFocus < 0) {
+      setTabFocus(tabs.current.length - 1);
+    }
+  };
 
-    // Only re-run the effect if tabFocus changes
-    useEffect(() => focusTab(), [tabFocus]);
+  // Only re-run the effect if tabFocus changes
+  useEffect(() => focusTab(), [tabFocus]);
 
-    // Focus on tabs when using up & down arrow keys
-    const onKeyDown = e => {
-        switch (e.key) {
-            case KEY_CODES.ARROW_UP: {
-                e.preventDefault();
-                setTabFocus(tabFocus - 1);
-                break;
-            }
+  // Focus on tabs when using up & down arrow keys
+  const onKeyDown = e => {
+    switch (e.key) {
+      case KEY_CODES.ARROW_UP: {
+        e.preventDefault();
+        setTabFocus(tabFocus - 1);
+        break;
+      }
 
-            case KEY_CODES.ARROW_DOWN: {
-                e.preventDefault();
-                setTabFocus(tabFocus + 1);
-                break;
-            }
+      case KEY_CODES.ARROW_DOWN: {
+        e.preventDefault();
+        setTabFocus(tabFocus + 1);
+        break;
+      }
 
-            default: {
-                break;
-            }
-        }
-    };
+      default: {
+        break;
+      }
+    }
+  };
 
-    return (
-        <StyledJobsSection id="education" ref={revealContainer}>
-            <h2 className="numbered-heading">Education</h2>
+  return (
+    <StyledJobsSection id="education" ref={revealContainer}>
+      <h2 className="numbered-heading">Education</h2>
 
-            <div className="inner">
-                <StyledTabList role="tablist" aria-label="Job tabs" onKeyDown={e => onKeyDown(e)}>
-                    {jobsData &&
-                        jobsData.map(({ node }, i) => {
-                            const { title } = node.frontmatter;
-                            return (
-                                <StyledTabButton
-                                    key={i}
-                                    isActive={activeTabId === i}
-                                    onClick={() => setActiveTabId(i)}
-                                    ref={el => (tabs.current[i] = el)}
-                                    id={`tab-${i}`}
-                                    role="tab"
-                                    tabIndex={activeTabId === i ? '0' : '-1'}
-                                    aria-selected={activeTabId === i ? true : false}
-                                    aria-controls={`panel-${i}`}>
-                                    <span>{title}</span>
-                                </StyledTabButton>
-                            );
-                        })}
-                    <StyledHighlight activeTabId={activeTabId} />
-                </StyledTabList>
+      <div className="inner">
+        <StyledTabList role="tablist" aria-label="Job tabs" onKeyDown={e => onKeyDown(e)}>
+          {jobsData &&
+            jobsData.map(({ node }, i) => {
+              const { title } = node.frontmatter;
+              return (
+                <StyledTabButton
+                  key={i}
+                  isActive={activeTabId === i}
+                  onClick={() => setActiveTabId(i)}
+                  ref={el => (tabs.current[i] = el)}
+                  id={`tab-${i}`}
+                  role="tab"
+                  tabIndex={activeTabId === i ? '0' : '-1'}
+                  aria-selected={activeTabId === i ? true : false}
+                  aria-controls={`panel-${i}`}>
+                  <span>{title}</span>
+                </StyledTabButton>
+              );
+            })}
+          <StyledHighlight activeTabId={activeTabId} />
+        </StyledTabList>
 
-                <StyledTabPanels>
-                    {jobsData &&
-                        jobsData.map(({ node }, i) => {
-                            const { frontmatter, html } = node;
-                            const { title, url, company, range } = frontmatter;
+        <StyledTabPanels>
+          {jobsData &&
+            jobsData.map(({ node }, i) => {
+              const { frontmatter, html } = node;
+              const { title, url, company, range } = frontmatter;
 
-                            return (
-                                <CSSTransition key={i} in={activeTabId === i} timeout={250} classNames="fade">
-                                    <StyledTabPanel
-                                        id={`panel-${i}`}
-                                        role="tabpanel"
-                                        tabIndex={activeTabId === i ? '0' : '-1'}
-                                        aria-labelledby={`tab-${i}`}
-                                        aria-hidden={activeTabId !== i}
-                                        hidden={activeTabId !== i}>
-                                        <h3>
-                                            <span>{title}</span>
-                                            <span className="company">
-                                                &nbsp;@&nbsp;
-                                                <a href={url} className="inline-link">
-                                                    {company}
-                                                </a>
-                                            </span>
-                                        </h3>
+              return (
+                <CSSTransition key={i} in={activeTabId === i} timeout={250} classNames="fade">
+                  <StyledTabPanel
+                    id={`panel-${i}`}
+                    role="tabpanel"
+                    tabIndex={activeTabId === i ? '0' : '-1'}
+                    aria-labelledby={`tab-${i}`}
+                    aria-hidden={activeTabId !== i}
+                    hidden={activeTabId !== i}>
+                    <h3>
+                      <span>{title}</span>
+                      <span className="company">
+                        &nbsp;@&nbsp;
+                        <a href={url} className="inline-link">
+                          {company}
+                        </a>
+                      </span>
+                    </h3>
 
-                                        <p className="range">{range}</p>
+                    <p className="range">{range}</p>
 
-                                        <div dangerouslySetInnerHTML={{ __html: html }} />
-                                    </StyledTabPanel>
-                                </CSSTransition>
-                            );
-                        })}
-                </StyledTabPanels>
-            </div>
-        </StyledJobsSection>
-    );
+                    <div dangerouslySetInnerHTML={{ __html: html }} />
+                  </StyledTabPanel>
+                </CSSTransition>
+              );
+            })}
+        </StyledTabPanels>
+      </div>
+    </StyledJobsSection>
+  );
 };
 
 export default Education;
