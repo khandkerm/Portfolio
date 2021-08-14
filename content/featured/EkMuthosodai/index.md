@@ -2,8 +2,8 @@
 date: '2'
 title: 'EKmutho Sodai'
 cover: './ekmutho.PNG'
-github: 'https://github.com/Junaed-Uddin/Akij-Group.git'
-external: 'https://github.com/Junaed-Uddin/Akij-Group.git'
+github: '#'
+external: '#'
 tech:
   - spring JDBC
   - Javascript
